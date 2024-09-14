@@ -4,6 +4,15 @@ fn main() {
     let target_os = env::var("CARGO_CFG_TARGET_OS")
         .expect(r#"The CARGO_CFG_TARGET_OS environment is not set in the build script."#);
 
+    println!("cargo:rerun-if-env-changed=PCSC_I_HANDLE_MY_OWN_LINKING");
+    println!("cargo:rerun-if-env-changed=PCSC_LIB_DIR");
+    println!("cargo:rerun-if-env-changed=PCSC_LIB_NAME");
+
+    if env::var("PCSC_I_HANDLE_MY_OWN_LINKING").is_ok() {
+        // do nothing
+        return;
+    }
+
     // Prefer the built-in service/library if available, otherwise try
     // libpcsclite.
     match &*target_os {

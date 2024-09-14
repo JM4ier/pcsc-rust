@@ -30,9 +30,9 @@
 // LONG is i32 they are negative (which presumably was the intention).
 #![allow(overflowing_literals)]
 
-use std::os::raw::{c_char, c_void};
 #[cfg(not(target_os = "macos"))]
 use std::os::raw::{c_long, c_ulong};
+use std::os::raw::{c_char, c_void};
 
 #[cfg(not(target_os = "macos"))]
 pub type DWORD = c_ulong;
